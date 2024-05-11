@@ -1,3 +1,1 @@
-"C:\Program Files\JetBrains\CLion 2024.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\rpg.dir/objects.a
-C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\ar.exe qc CMakeFiles\rpg.dir/objects.a @CMakeFiles\rpg.dir\objects1.rsp
-C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE -g -Wl,--whole-archive CMakeFiles\rpg.dir/objects.a -Wl,--no-whole-archive -o rpg.exe -Wl,--out-implib,librpg.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\rpg.dir\linkLibs.rsp
+/Library/Developer/CommandLineTools/usr/bin/c++ -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/rpg.dir/main.cpp.o CMakeFiles/rpg.dir/Character/Character.cpp.o CMakeFiles/rpg.dir/Player/Player.cpp.o CMakeFiles/rpg.dir/Enemy/Enemy.cpp.o CMakeFiles/rpg.dir/Combat/Combat.cpp.o CMakeFiles/rpg.dir/Combat/Action.cpp.o CMakeFiles/rpg.dir/Files/FileHandler.cpp.o -o rpg 
