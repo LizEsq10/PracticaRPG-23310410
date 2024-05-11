@@ -21,8 +21,8 @@ int main() {
     Player *player = loadPlayerInfo();
     cout << player -> toString() << endl;
     // Player *player = new Player("Lizy", 40, 10, 5, 3);
-    Enemy *enemy = new Enemy("Economia", 15, 6, 2, 5, 100);
-    Enemy *enemy2 = new Enemy("HCI", 15, 6, 2, 5, 100);
+    Enemy *enemy = new Enemy("Economia", 15, 6, 2, 5, 80);
+    Enemy *enemy2 = new Enemy("HCI", 15, 6, 2, 5, 70);
 
     vector<Character*> participants;
 

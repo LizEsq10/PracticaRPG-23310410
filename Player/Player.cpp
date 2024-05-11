@@ -26,6 +26,8 @@ void Player::doAttack(Character *target) {
 
 void Player::takeDamage(int damage) {
 
+    damage = damage * level;
+
     int trueDamage = damage - getDefense();
 
     if (trueDamage < 0) {
@@ -66,6 +68,8 @@ void Player::gainExperience(int exp) {
 }
 void Player::saveProgress()
 {
+
+
     char* buffer = this ->serialize();
     FileHandler file_handler = FileHandler();
     file_handler.writeToFile("Jugador.data", buffer, Player::BUFFER_SIZE);
