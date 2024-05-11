@@ -4,6 +4,7 @@
 
 #ifndef RPG_FILEHANDLER_H
 #define RPG_FILEHANDLER_H
+#include <fstream>
 #import <fstream>
 
 using namespace std;

@@ -7,6 +7,14 @@
 #include <iostream>
 #include <utility>
 
+#include "Combat.h"
+#include <string>
+#include <iostream>
+#include <utility>
+#include <algorithm>
+#include <cstdlib>
+#include <cstring>
+
 using namespace std;
 
 bool compareSpeed(Character *a, Character *b) {
@@ -50,14 +58,17 @@ void Combat::combatPrep() {
     sort(participants.begin(), participants.end(), compareSpeed);
 }
 
-string Combat::toString() {
-    string result = "";
-    vector<Character*>::iterator it;
-    for(it = participants.begin(); it != participants.end(); it++){
-        result += (*it)->toString() + "\n";
+char* Combat::toString() {
+    char buffer[1024];
+    buffer[0] = '\0';
+    for (auto it = participants.begin(); it != participants.end(); ++it) {
+        strcat(buffer, (*it)->toString().c_str());
+        strcat(buffer, "\n");
     }
-    cout<<"===================="<<endl;
-    return result;
+
+    strcat(buffer, "-------------\n");
+
+    return buffer;
 }
 
 Character* Combat::getTarget(Character* attacker) {
@@ -72,24 +83,32 @@ Character* Combat::getTarget(Character* attacker) {
 }
 
 void Combat::doCombat() {
-    cout<< "Inicio del combate" << endl;
-    combatPrep();
     int round = 1;
-    //Este while representa las rondas del combate
+    cout << "Fight! " << endl;
+    combatPrep();
+
+    for (auto participant : participants) {
+        cout << participant->toString() << endl;
+    }
+
     while(enemies.size() > 0 && partyMembers.size() > 0) {
-        cout<<"Round " << round << endl;
+        cout << "-------------------------------" << endl;
+        cout<<"Round: " << round << endl;
         vector<Character*>::iterator it = participants.begin();
         registerActions(it);
         executeActions(it);
 
+        cout << "-------------------------------" << endl;
+        cout << "-------------------------------" << endl;
+
         round++;
+
     }
 
-    if(enemies.empty()) {
+    if (enemies.empty()) {
         cout << "You win!" << endl;
     } else {
         cout << "You lose!" << endl;
-
     }
 }
 
@@ -98,7 +117,6 @@ void Combat::executeActions(vector<Character*>::iterator participant) {
         Action currentAction = actionQueue.top();
         currentAction.action();
         actionQueue.pop();
-
         //Check if there are any dead characters
         checkParticipantStatus(*participant);
         checkParticipantStatus(currentAction.target);
@@ -106,7 +124,7 @@ void Combat::executeActions(vector<Character*>::iterator participant) {
 }
 
 void Combat::checkParticipantStatus(Character *participant) {
-    if(participant->getHealth() <= 0) {
+    if(participant != nullptr && participant->getHealth() <= 0) {
         if(participant->getIsPlayer()) {
             partyMembers.erase(remove(partyMembers.begin(), partyMembers.end(), participant), partyMembers.end());
         } else {
@@ -117,17 +135,14 @@ void Combat::checkParticipantStatus(Character *participant) {
 }
 
 void Combat::registerActions(vector<Character*>::iterator participantIterator) {
-    //Este while representa el turno de cada participante
-    //La eleccion que cada personaje elije en su turno
     while(participantIterator != participants.end()) {
         if((*participantIterator)->getIsPlayer()) {
             Action playerAction = ((Player*) *participantIterator)->takeAction(enemies);
             actionQueue.push(playerAction);
         } else {
-            Action enemyAction = ((Enemy*) *participantIterator)->takeAction(partyMembers);
+            Action enemyAction = ((Enemy*)*participantIterator)->takeAction(partyMembers);
             actionQueue.push(enemyAction);
         }
-
         participantIterator++;
     }
 }

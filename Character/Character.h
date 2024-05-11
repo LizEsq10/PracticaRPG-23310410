@@ -5,17 +5,20 @@
 #ifndef RPG_CHARACTER_H
 #define RPG_CHARACTER_H
 #include <string>
+#include <cmath>
 
 using namespace std;
 
 class Character {
 protected:
-    char name[30];
+    char name [40];
     int health;
+    int Inihealth;
     int attack;
     int defense;
     int speed;
     bool isPlayer;
+    bool isDefending;
 public:
     Character(char* _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer);
 
@@ -24,17 +27,20 @@ public:
 
     //TODO: Implementar metodo de defensa
     //Incrementar la defensa un 20% solo por el turno actual
-    void defend();
+    void Defense();
 
     bool flee(Character* target);
     char* getName();
     int getHealth();
+    int getInihealth();
     int getAttack();
-    int getDefense();
+    double getDefense();
     bool getIsPlayer();
     int getSpeed();
     string toString();
 };
+
+
 
 
 #endif //RPG_CHARACTER_H

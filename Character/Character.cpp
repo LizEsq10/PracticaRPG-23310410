@@ -2,9 +2,11 @@
 // Created by Victor Navarro on 15/02/24.
 //
 
+#include <string.h>
 #include "Character.h"
+
 Character::Character(char* _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer) {
-    strcpy(name, _name);
+    strcpy (name, _name);
     health = _health;
     attack = _attack;
     defense = _defense;
@@ -20,12 +22,16 @@ int Character::getHealth() {
     return health;
 }
 
+int Character::getInihealth(){
+    return Inihealth;
+}
+
 int Character::getAttack() {
     return attack;
 }
 
-int Character::getDefense() {
-    return defense;
+double Character::getDefense() {
+    return isDefending ? defense * 1.20 : defense;
 }
 
 int Character::getSpeed() {
@@ -33,7 +39,9 @@ int Character::getSpeed() {
 }
 
 string Character::toString() {
-    return "\nHealth: " + to_string(health) + "\nAttack: " + to_string(attack) + "\nDefense: " + to_string(defense) + "\nSpeed: " + to_string(speed);
+    string aux = "Name: ";
+    aux.append(name).append("\nHealth: " + to_string(health) + "\nAttack: " + to_string(attack) + "\nDefense: " + to_string(defense) + "\nSpeed: " + to_string(speed));
+    return aux;
 }
 
 bool Character::getIsPlayer() {
@@ -45,5 +53,10 @@ bool Character::flee(Character*target) {
         return true;
 
     int chance = rand() % 100;
-    return chance > 30;
+    return chance > 40;
+}
+
+void Character::Defense(){
+    defense = std::ceil(defense*1.2);
+    isDefending = true;
 }

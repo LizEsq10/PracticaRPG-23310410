@@ -17,9 +17,15 @@ class Player: public Character {
 private:
     int level;
     int experience;
+    int originalDefense;
+    Enemy* enemyselect;
+
 
     void levelUp();
     void saveProgress();
+    void loadProgress();
+
+
 public:
     Player(char* _name, int _health, int _attack, int _defense, int _speed);
     Player(char* _name, int _health, int _attack, int _defense, int _speed, bool isPlayer, int _level, int _experience);
@@ -31,12 +37,14 @@ public:
     static Player* unserialize(char* buffer);
 
     void gainExperience(int exp);
-    static const unsigned int BUFFER_SIZE = sizeof (name) + sizeof(health) + sizeof(attack) + sizeof(defense) + sizeof(speed) + sizeof(isPlayer) + sizeof(level) + sizeof(experience);
 
-    //TODO: Implement use object
+    static const unsigned int BUFFER_SIZE = sizeof (name) + sizeof (attack) + sizeof (defense) + sizeof (speed) + sizeof (isPlayer) + sizeof (level) + sizeof (experience);
+
 private:
     char buffer[Player::BUFFER_SIZE];
-};
 
+    //TODO: Implement use object
+
+};
 
 #endif //RPG_PLAYER_H

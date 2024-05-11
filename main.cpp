@@ -8,20 +8,21 @@ Player* loadPlayerInfo() {
     try {
         char buffer[Player::BUFFER_SIZE];
         FileHandler fileHandler = FileHandler();
-        fileHandler.readFromFile("PlayerInfo.data", buffer, Player::BUFFER_SIZE);
+        fileHandler.readFromFile("Jugador.data", buffer, Player::BUFFER_SIZE);
         return Player::unserialize(buffer);
     } catch(int error) {
         //Preguntar al usuario el nombre de jugador
-        return new Player("Otro Jugador", 7, 15, 7, 8);
+        //return new Player("Otro Jugador", 10, 5, 4, 3);
+        return new Player("Lizy ", 40, 10, 5, 3);
     }
 }
 
 int main() {
     Player *player = loadPlayerInfo();
-    cout << player->getName() << endl;
-    cout << player->toString() << endl;
-    Enemy *enemy = new Enemy("Goblin", 15, 6, 2, 5, 10);
-    Enemy *enemy2 = new Enemy("Orc", 15, 6, 2, 5, 10);
+    cout << player -> toString() << endl;
+    // Player *player = new Player("Lizy", 40, 10, 5, 3);
+    Enemy *enemy = new Enemy("Economia", 15, 6, 2, 5, 100);
+    Enemy *enemy2 = new Enemy("HCI", 15, 6, 2, 5, 100);
 
     vector<Character*> participants;
 
@@ -37,3 +38,4 @@ int main() {
     delete combat;
     return 0;
 }
+

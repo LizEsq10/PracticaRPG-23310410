@@ -10,6 +10,7 @@
 using namespace std;
 using namespace combat_utils;
 
+
 Enemy::Enemy(char* _name, int _health, int _attack, int _defense, int _speed, int _experience) : Character(_name, _health, _attack, _defense, _speed, false) {
     experience = _experience;
 }
@@ -28,7 +29,8 @@ void Enemy::takeDamage(int damage) {
     }
 }
 
-int Enemy::getExperience() {
+int Enemy::getExperience() const {
+    cout << "Experiencia obtenida en este combate: " << experience <<endl;
     return experience;
 }
 
@@ -46,14 +48,27 @@ Character* Enemy::selectTarget(vector<Player*> possibleTargets) {
 }
 
 Action Enemy::takeAction(vector<Player*> partyMembers) {
+    isDefending = false;
     Action currentAction;
     currentAction.speed = getSpeed();
 
     Character* target = selectTarget(partyMembers);
-    currentAction.target = target;
-    currentAction.action = [this, target](){
-        doAttack(target);
-    };
+    int referenceHealth = getInihealth() * 0.15;
+    int enemyDefenseProp = rand() % 100 + 1;
+
+    if (getHealth() < referenceHealth && enemyDefenseProp > 40 ){
+        currentAction.target = nullptr;
+        currentAction.action =  [this] (){
+            Defense();
+            cout << "defense has been activated" << endl;
+        };
+    } else {
+        currentAction.target = target;
+        currentAction.action = [this, target]() {
+            doAttack(target);
+        };
+
+    }
 
     return currentAction;
 }
