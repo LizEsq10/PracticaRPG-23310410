@@ -38,7 +38,8 @@ public:
 
     void gainExperience(int exp);
 
-    static const unsigned int BUFFER_SIZE = sizeof (name) + sizeof (attack) + sizeof (defense) + sizeof (speed) + sizeof (isPlayer) + sizeof (level) + sizeof (experience);
+    static const unsigned int BUFFER_SIZE = sizeof (name) + sizeof(health) + sizeof(attack) + sizeof(defense) + sizeof(speed) + sizeof(isPlayer) + sizeof(level) + sizeof(experience);
+
 
 private:
     char buffer[Player::BUFFER_SIZE];
